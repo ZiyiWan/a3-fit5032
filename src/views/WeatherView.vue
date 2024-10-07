@@ -42,10 +42,10 @@ const searchByCity = async () => {
 
 const getCurrentLocationWeatherData = async (latitude, longitude) => {
     try {
-        const response = await axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${weatherApiKey}`);
+        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${weatherApiKey}`);
         weatherData.value = response.data;
         temperature.value = Math.floor(response.data.main.temp - 273.15);
-        iconUrl.value = `http://api.openweathermap.org/img/w/${response.data.weather[0].icon}.png`;
+        iconUrl.value = `https://api.openweathermap.org/img/w/${response.data.weather[0].icon}.png`;
     } catch (error) {
         console.log('Error info: ', error);
     }
