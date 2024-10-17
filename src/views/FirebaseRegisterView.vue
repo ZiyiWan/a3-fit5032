@@ -57,19 +57,16 @@ const submitForm = async () => {
     try {
         // 创建用户
         const { user } = await createUserWithEmailAndPassword(auth, userEmail, userPassword)
-
         // 创建 Firestore 文档并保存用户信息，设置默认角色为 "user"
         await setDoc(doc(db, 'users', user.uid), {
             email: userEmail,
             role: 'admin',  // 默认角色
         })
-
         // 设置登录状态
         isAuthenticated.value = {
             user: user,
             role: 'admin',
         }
-
         // 跳转到 About 页面
         router.push({ name: 'About' })
     } catch (error) {

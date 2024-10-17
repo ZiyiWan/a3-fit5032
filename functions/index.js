@@ -16,7 +16,7 @@ const fs = require('fs')
 const path = require('path')
 
 admin.initializeApp()
-sgMail.setApiKey(process.env.VITE_SENDGRID_KEY)
+sgMail.setApiKey()
 const db = admin.firestore()
 exports.countBooks = onRequest((req, res) => {
   cors(req, res, async () => {

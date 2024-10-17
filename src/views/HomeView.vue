@@ -2,6 +2,7 @@
 import { ref, watch } from 'vue'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
+import emailjs from '@emailjs/browser';
 
 const formData = ref({
     username: '',
@@ -95,10 +96,31 @@ const validateReason = (blur) => {
         successMessage.value = null
     }
 }
+const sendEmail = async () => {
+    try {
+        emailjs.init("oMJMbJekHXUIOBDpL");
+        emailjs.send("service_5032", "template_6r6844y", {
+            from_name: "FIT5032 team",
+            to_name: "user1",
+            to_email: "zwan0238@gmail.com",
+            message: "hello user1",
+        }).then(
+            (response) => {
+                console.log('SUCCESS!', response.status, response.text);
+            },
+            (error) => {
+                console.log('FAILED...', error);
+            },
+        );
+    } catch (error) {
+        console.log('Error:', error)
+    }
+}
 watch(() => formData.value.reason, () => validateReason(false))
 </script>
 
 <template>
+    <button type="button" class="btn btn-secondary" @click="sendEmail">Send</button>
     <!-- 🗄️ W3. Library Registration Form -->
     <div class="container mt-5">
         <div class="row">

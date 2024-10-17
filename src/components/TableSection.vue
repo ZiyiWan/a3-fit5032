@@ -79,7 +79,7 @@ async function sendEmailsToSelected() {
             email: user.email,
             name: user.name
         }));
-        const response = await axios.post('https://sendbulkemails-jph42zefya-uc.a.run.app', { emails });
+        //const response = await axios.post('https://sendbulkemails-jph42zefya-uc.a.run.app', { emails });
         alert('Emails sent to selected users');
     } catch (error) {
         console.error('Error sending bulk emails:', error);

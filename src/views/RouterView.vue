@@ -63,7 +63,7 @@ const getCurrentLocation = () => {
             currentLocation.value = [longitude, latitude];
 
             // 在地图上显示当前位置
-            new mapboxgl.Marker({ color: 'blue' })
+            new mapboxgl.Marker({ color: 'red' })
                 .setLngLat(currentLocation.value)
                 .addTo(map.value);
 
