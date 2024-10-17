@@ -3,11 +3,14 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - main # 每次推送到 main 分支时触发工作流
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write # 确保有写入内容的权限，用于部署
 
     steps:
       - name: Checkout
@@ -22,6 +25,7 @@ jobs:
         run: npm ci
 
       - name: Build
+        # 使用 GitHub Secrets 作为环境变量传递给构建环境
         env:
           VITE_FIREBASE_API_KEY_KEY: ${{ secrets.VITE_FIREBASE_API_KEY_KEY }}
           VITE_FIREBASE_AUTH_DOMAIN_KEY: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN_KEY }}
@@ -34,10 +38,9 @@ jobs:
         run: npm run build
 
       - name: Deploy
+        # 使用 GitHub Pages 部署操作
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
-          branch: gh-pages
-          folder: dist
-
-permissions:
-  contents: write
+          branch: gh-pages # 部署到 gh-pages 分支
+          folder: dist # 指定构建后的文件夹
+          clean: true # 在部署之前清理 gh-pages 分支，以防止旧文件残留
